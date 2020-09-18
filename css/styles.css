@@ -3,6 +3,7 @@ body{
   font-family: 'Courier New', monospace;
   text-align: center;
   color: gray;
+  background-color: #edf6f9;
 }
 #target{
   font-size: 48px;
@@ -11,10 +12,10 @@ body{
 #message{
   font-size: 24px;
 }
-.target :hover{
-  cursor: pointer;
-}
 input{
   text-align: center;
   height: 32px;
+}
+.input :hover{
+  cursor: pointer;
 }
