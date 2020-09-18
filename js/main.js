@@ -22,7 +22,6 @@
   const message = document.getElementById("message");
   const inputField = document.getElementById("input");
   const timer = document.getElementById("timer");
-  
 
   const setWord = () => {
     inputField.placeholder = "";
@@ -50,33 +49,33 @@
   });
 
   const displayElapsedTime = () => {
-    let elapsedTime = ((Date.now() - startTime));
+    let elapsedTime = Date.now() - startTime;
     const d = new Date(elapsedTime);
-    let seconds = String(d.getSeconds()).padStart(2, '0');
-    let milliSeconds = String(d.getMilliseconds()).padStart(3, '0');
-    timer.textContent = `${seconds} : ${milliSeconds}`
-    
+    let seconds = String(d.getSeconds()).padStart(2, "0");
+    let milliSeconds = String(d.getMilliseconds()).padStart(3, "0");
+    timer.textContent = `${seconds} : ${milliSeconds}`;
+
     timeOut = setTimeout(() => {
       displayElapsedTime();
-    }, 10)
-  }
+    }, 10);
+  };
 
   const stopTimer = () => {
     clearTimeout(timeOut);
-    timer.textContent = ""
-  }
+    timer.textContent = "";
+  };
 
   const setupTyping = () => {
     document.addEventListener("keyup", (e) => {
       if (e.key !== word[location]) {
+        inputField.value = word.slice(0, location);
         return;
       }
       location++;
       target.textContent = "_".repeat(location) + word.substring(location);
-  
+
       if (location === word.length) {
         if (words.length === 0) {
-
           stopTimer();
           const finishedTime = ((Date.now() - startTime) / 1000).toFixed(2);
           message.textContent = "";
@@ -87,5 +86,5 @@
         setWord();
       }
     });
-  }
+  };
 }
