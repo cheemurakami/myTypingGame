@@ -8,9 +8,13 @@ body{
   font-size: 48px;
   letter-spacing: .1em;
 }
+#message{
+  font-size: 24px;
+}
 .target :hover{
   cursor: pointer;
 }
 input{
   text-align: center;
+  height: 32px;
 }
