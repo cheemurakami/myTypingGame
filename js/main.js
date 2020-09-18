@@ -40,26 +40,29 @@
     if (isPlaying) {
       message.textContent = "👇👇👇 Type here! 👇👇👇";
       setWord();
+      setupTyping();
       startTime = Date.now();
     }
   });
 
-  document.addEventListener("keyup", (e) => {
-    if (e.key !== word[location]) {
-      return;
-    }
-    location++;
-    target.textContent = "_".repeat(location) + word.substring(location);
-
-    if (location === word.length) {
-      if (words.length === 0) {
-        const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
-        message.textContent = "";
-        inputField.style.display = "none";
-        const result = document.getElementById("result");
-        result.textContent = `Finished! ${elapsedTime} seconds!`;
+  const setupTyping = () => {
+    document.addEventListener("keyup", (e) => {
+      if (e.key !== word[location]) {
+        return;
       }
-      setWord();
-    }
-  });
+      location++;
+      target.textContent = "_".repeat(location) + word.substring(location);
+  
+      if (location === word.length) {
+        if (words.length === 0) {
+          const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
+          message.textContent = "";
+          inputField.style.display = "none";
+          const result = document.getElementById("result");
+          result.textContent = `Finished! ${elapsedTime} seconds!`;
+        }
+        setWord();
+      }
+    });
+  }
 }
