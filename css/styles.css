@@ -28,8 +28,8 @@ input{
 .input :hover{
   cursor: pointer;
 }
-#timer{
-  width: 300px;
+#timer, .result{
+  width: 600px;
   height: 150px;
   text-align: center;
   line-height: 150px;
