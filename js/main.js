@@ -1,8 +1,7 @@
 "use strict";
 
 {
-  const words = ["red", "blue", "pink", "orange", "yellow", "green", "purple"];
-  const wordsObj = {
+  const colorsObj = {
     red: "あか",
     blue: "あお",
     pink: "ピンク",
@@ -11,17 +10,52 @@
     green: "みどり",
     purple: "むらさき",
   };
+  const vegesObj = {
+    carrot: "にんじん",
+    cabbage: "キャベツ",
+    cucumber: "きゅうり",
+    tomato: "トマト",
+    potato: "じゃがいも",
+    onion: "たまねぎ",
+    lettuce: "レタス",
+  };
+  const kitchenItemsObj = {
+    knife: "包丁",
+    fork: "フォーク",
+    spoon: "スプーン",
+    plate: "お皿",
+    bowl: "お椀",
+    glass: "グラス",
+    mug: "マグカップ",
+  };
+
+  const wordsCategories = {
+    colors: colorsObj,
+    veges: vegesObj,
+    kitchenItems: kitchenItemsObj,
+  };
+
+  let words;
   let word;
+  let wordsObj;
   let location = 0;
   let startTime;
-  let isPlaying = false;
   let timeOut;
+  let isDisabled = true;
 
   const target = document.getElementById("target");
   const targetJp = document.getElementById("targetJp");
   const message = document.getElementById("message");
   const inputField = document.getElementById("input");
   const timer = document.getElementById("timer");
+  const selectBox = document.getElementById("inputGroupSelect04");
+
+  const selectWords = () => {
+    const selectedWordsCategory = selectBox.value;
+    wordsObj = wordsCategories[selectedWordsCategory];
+    words = Object.keys(wordsObj);
+    isDisabled = false;
+  };
 
   const setWord = () => {
     inputField.placeholder = "";
@@ -32,37 +66,6 @@
     location = 0;
     target.textContent = word;
     targetJp.textContent = wordsObj[word];
-  };
-
-  document.addEventListener("click", () => {
-    if (isPlaying) {
-      return;
-    }
-    isPlaying = true;
-    if (isPlaying) {
-      message.textContent = "👇👇👇 Type here! 👇👇👇";
-      setWord();
-      setupTyping();
-      startTime = Date.now();
-      displayElapsedTime();
-    }
-  });
-
-  const displayElapsedTime = () => {
-    let elapsedTime = Date.now() - startTime;
-    const d = new Date(elapsedTime);
-    let seconds = String(d.getSeconds()).padStart(2, "0");
-    let milliSeconds = String(d.getMilliseconds()).padStart(3, "0");
-    timer.textContent = `${seconds} : ${milliSeconds}`;
-
-    timeOut = setTimeout(() => {
-      displayElapsedTime();
-    }, 10);
-  };
-
-  const stopTimer = () => {
-    clearTimeout(timeOut);
-    timer.textContent = "";
   };
 
   const setupTyping = () => {
@@ -86,5 +89,40 @@
         setWord();
       }
     });
+  };
+
+  selectBox.addEventListener("change", () => {
+    selectWords();
+  });
+
+  inputField.addEventListener("click", () => {
+    if (isDisabled) {
+      return;
+    }
+    message.textContent = "👇👇👇 Type here! 👇👇👇";
+    const selectBoxDiv = document.getElementById("select-box");
+    selectBoxDiv.style.display = "none";
+
+    setWord();
+    setupTyping();
+    startTime = Date.now();
+    displayElapsedTime();
+  });
+
+  const displayElapsedTime = () => {
+    let elapsedTime = Date.now() - startTime;
+    const d = new Date(elapsedTime);
+    let seconds = String(d.getSeconds()).padStart(2, "0");
+    let milliSeconds = String(d.getMilliseconds()).padStart(3, "0");
+    timer.textContent = `${seconds} : ${milliSeconds}`;
+
+    timeOut = setTimeout(() => {
+      displayElapsedTime();
+    }, 10);
+  };
+
+  const stopTimer = () => {
+    clearTimeout(timeOut);
+    timer.textContent = "";
   };
 }

@@ -4,18 +4,39 @@ body{
   text-align: center;
   color: gray;
   background-color: #edf6f9;
+  letter-spacing: .1em;
 }
 #target{
   font-size: 48px;
-  letter-spacing: .1em;
+  /* letter-spacing: .1em; */
+}
+#targetJp{
+  font-size: 16px;
 }
 #message{
-  font-size: 24px;
+  font-size: 16px;
 }
 input{
   text-align: center;
-  height: 32px;
+  font-size: 24px;
+  height: 48px;
+}
+.input{
+  margin-top: 32px;
+  margin-bottom: 24px;
 }
 .input :hover{
   cursor: pointer;
+}
+#timer{
+  width: 300px;
+  height: 150px;
+  text-align: center;
+  line-height: 150px;
+  margin: auto;
+  font-size: 24px;
+}
+#select-box{
+  width: 400px;
+  margin: auto;
 }

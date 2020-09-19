@@ -3,14 +3,25 @@
 <head>
   <meta charset="utf-8">
   <title>Typing Game</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <div class="target">
     <p id="target"></p>
     <p id="message">Welcome!</p>
+
+    <div id="select-box">
+      <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+        <option selected>Select Categories(カテゴリー選択)</option>
+        <option value="colors">Colors (色)</option>
+        <option value="veges">Vegetables (野菜)</option>
+        <option value="kitchenItems">Kitchen Items (キッチン用具)</option>   
+      </select>
+    </div>
+    
     <div class="input">
-      <input id="input" placeholder="Click to start">
+      <input id="input" placeholder="Start!">
     </div>
     <p id="targetJp"></p>
   </div>
