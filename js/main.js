@@ -35,6 +35,13 @@
     kitchenItems: kitchenItemsObj,
   };
 
+  const target = document.getElementById("target");
+  const targetJp = document.getElementById("targetJp");
+  const message = document.getElementById("message");
+  const inputField = document.getElementById("input");
+  const timer = document.getElementById("timer");
+  const selectBox = document.getElementById("inputGroupSelect04");
+
   let words;
   let word;
   let wordsObj;
@@ -42,13 +49,6 @@
   let startTime;
   let timeOut;
   let isDisabled = true;
-
-  const target = document.getElementById("target");
-  const targetJp = document.getElementById("targetJp");
-  const message = document.getElementById("message");
-  const inputField = document.getElementById("input");
-  const timer = document.getElementById("timer");
-  const selectBox = document.getElementById("inputGroupSelect04");
 
   const selectWords = () => {
     const selectedWordsCategory = selectBox.value;
@@ -60,9 +60,7 @@
   const setWord = () => {
     inputField.placeholder = "";
     inputField.value = "";
-
     word = words.splice(Math.floor(Math.random() * words.length), 1)[0];
-
     location = 0;
     target.textContent = word;
     targetJp.textContent = wordsObj[word];
@@ -70,7 +68,9 @@
 
   const setupTyping = () => {
     document.addEventListener("keyup", (e) => {
+      playAudio("typing");
       if (e.key !== word[location]) {
+        playAudio("typo");
         inputField.value = word.slice(0, location);
         return;
       }
@@ -79,6 +79,7 @@
 
       if (location === word.length) {
         if (words.length === 0) {
+          playAudio("tada");
           stopTimer();
           const finishedTime = ((Date.now() - startTime) / 1000).toFixed(2);
           message.textContent = "";
@@ -102,7 +103,6 @@
     message.textContent = "👇👇👇 Type here! 👇👇👇";
     const selectBoxDiv = document.getElementById("select-box");
     selectBoxDiv.style.display = "none";
-
     setWord();
     setupTyping();
     startTime = Date.now();
@@ -124,5 +124,11 @@
   const stopTimer = () => {
     clearTimeout(timeOut);
     timer.textContent = "";
+  };
+
+  const playAudio = (type) => {
+    let audio = document.getElementById(`${type}`);
+    console.log(audio);
+    audio.play();
   };
 }
