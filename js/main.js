@@ -50,12 +50,29 @@
   let timeOut;
   let isDisabled = true;
 
+  selectBox.addEventListener("change", () => {
+    selectWords();
+  });
+
   const selectWords = () => {
     const selectedWordsCategory = selectBox.value;
     wordsObj = wordsCategories[selectedWordsCategory];
     words = Object.keys(wordsObj);
     isDisabled = false;
   };
+
+  inputField.addEventListener("click", () => {
+    if (isDisabled) {
+      return;
+    }
+    message.textContent = "👇👇👇 Type here! 👇👇👇";
+    const selectBoxDiv = document.getElementById("select-box");
+    selectBoxDiv.style.display = "none";
+    setWord();
+    setupTyping();
+    startTime = Date.now();
+    displayElapsedTime();
+  });
 
   const setWord = () => {
     inputField.placeholder = "";
@@ -70,7 +87,6 @@
     document.addEventListener("keyup", (e) => {
       playAudio("typing");
       if (e.key !== word[location]) {
-        playAudio("typo");
         inputField.value = word.slice(0, location);
         return;
       }
@@ -88,26 +104,10 @@
           result.textContent = `You win! ${finishedTime} seconds!`;
         }
         setWord();
+        playAudio("correct");
       }
     });
   };
-
-  selectBox.addEventListener("change", () => {
-    selectWords();
-  });
-
-  inputField.addEventListener("click", () => {
-    if (isDisabled) {
-      return;
-    }
-    message.textContent = "👇👇👇 Type here! 👇👇👇";
-    const selectBoxDiv = document.getElementById("select-box");
-    selectBoxDiv.style.display = "none";
-    setWord();
-    setupTyping();
-    startTime = Date.now();
-    displayElapsedTime();
-  });
 
   const displayElapsedTime = () => {
     let elapsedTime = Date.now() - startTime;
@@ -115,7 +115,6 @@
     let seconds = String(d.getSeconds()).padStart(2, "0");
     let milliSeconds = String(d.getMilliseconds()).padStart(3, "0");
     timer.textContent = `${seconds} : ${milliSeconds}`;
-
     timeOut = setTimeout(() => {
       displayElapsedTime();
     }, 10);
@@ -128,7 +127,6 @@
 
   const playAudio = (type) => {
     let audio = document.getElementById(`${type}`);
-    console.log(audio);
     audio.play();
   };
 }
